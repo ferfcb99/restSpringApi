@@ -8,5 +8,6 @@ public interface ProductController {
 
     int[] getEvenNumbers();
 
+    List<Integer> notEvenNumbers();
 
 }
