@@ -1,6 +1,10 @@
 package com.crudspring.controller.impl;
 
 import com.crudspring.controller.ProductController;
+import com.crudspring.dto.ProductDto;
+import com.crudspring.service.ProductSevice;
+import com.crudspring.service.impl.ProductServiceImpl;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,7 +14,11 @@ import java.util.List;
 @RequestMapping(path = "/products")
 public class ProductControllerImpl implements ProductController {
 
-    public ProductControllerImpl() {}
+    private final ProductSevice productSevice;
+
+    public ProductControllerImpl(ProductSevice productSevice) {
+        this.productSevice = productSevice;
+    }
 
     @Override
     @GetMapping(value = "/get-by-id/{id}")
@@ -42,6 +50,16 @@ public class ProductControllerImpl implements ProductController {
         }
         return notEvenNumbers;
     }
+
+    /*
+    * GET - to obtain information
+    * POST - Save information
+    * */
+    @PostMapping(value = "/save-product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ProductDto saveProduct(@RequestBody ProductDto productDto){
+        return productSevice.saveProduct(productDto);
+    }
+
 
 
 
